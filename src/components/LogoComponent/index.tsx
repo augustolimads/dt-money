@@ -1,11 +1,3 @@
-
 export const LogoComponent = () => {
-
-  return (
-    <div>
-      <h1>
-        LogoComponent
-      </h1>
-    </div>
-  );
+  return <img src="./Logo.svg" alt="dt money" />
 }
