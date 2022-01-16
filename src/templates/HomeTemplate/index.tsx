@@ -11,7 +11,7 @@ export const HomeTemplate = () => {
         <ContainerComponent>
           <nav className="pt-2 flex justify-between">
             <LogoComponent />
-            <ButtonComponent />
+            <ButtonComponent>Nova Transação</ButtonComponent>
           </nav>
           <div className="grid gap-2 grid-cols-3">
             <DisplayComponent />
