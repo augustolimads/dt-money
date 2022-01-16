@@ -1,25 +1,16 @@
-import { ButtonComponent } from 'src/components/ButtonComponent'
-import { ContainerComponent } from 'src/components/ContainerComponent'
 import { DisplayComponent } from 'src/components/DisplayComponent'
-import { HeaderComponent } from 'src/components/HeaderComponent'
-import { LogoComponent } from 'src/components/LogoComponent'
+import { LayoutComponent } from 'src/components/LayoutComponent'
 
 export const HomeTemplate = () => {
   return (
-    <div>
-      <HeaderComponent>
-        <ContainerComponent>
-          <nav className="pt-2 flex justify-between">
-            <LogoComponent />
-            <ButtonComponent>Nova Transação</ButtonComponent>
-          </nav>
-          <div className="grid gap-2 grid-cols-3">
-            <DisplayComponent />
-            <DisplayComponent />
-            <DisplayComponent />
-          </div>
-        </ContainerComponent>
-      </HeaderComponent>
-    </div>
+    <LayoutComponent>
+      <main className="border-2">
+        <div className="grid gap-8 grid-cols-3 -mt-16">
+          <DisplayComponent type="Entradas" value={1} />
+          <DisplayComponent type="Saídas" value={1} />
+          <DisplayComponent type="Total" hasGreenBg value={1} />
+        </div>
+      </main>
+    </LayoutComponent>
   )
 }
