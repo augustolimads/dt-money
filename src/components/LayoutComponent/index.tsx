@@ -8,7 +8,7 @@ type LayoutComponentProps = {
 
 export const LayoutComponent = ({ children }: LayoutComponentProps) => {
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <header className="bg-purple-900 h-48">
         <ContainerComponent>
           <nav className="pt-2 flex justify-between">
@@ -17,7 +17,9 @@ export const LayoutComponent = ({ children }: LayoutComponentProps) => {
           </nav>
         </ContainerComponent>
       </header>
-      <ContainerComponent>{children}</ContainerComponent>
+      <main className="bg-slate-50 flex-1">
+        <ContainerComponent>{children}</ContainerComponent>
+      </main>
     </div>
   )
 }
