@@ -1,6 +1,7 @@
 import { ContainerComponent } from '../ContainerComponent'
 import { LogoComponent } from '../LogoComponent'
 import { ButtonComponent } from '../ButtonComponent'
+import { ModalFormComponent } from '../ModalFormComponent'
 
 type LayoutComponentProps = {
   children: React.ReactNode
@@ -17,9 +18,10 @@ export const LayoutComponent = ({ children }: LayoutComponentProps) => {
           </nav>
         </ContainerComponent>
       </header>
-      <main className="bg-slate-50 flex-1">
+      <main className="bg-slate-50 flex-1 flex flex-col">
         <ContainerComponent>{children}</ContainerComponent>
       </main>
+      <ModalFormComponent />
     </div>
   )
 }

@@ -29,7 +29,7 @@ const example = [
 export const HomeTemplate = () => {
   return (
     <LayoutComponent>
-      <div className="bg-slate-100 relative">
+      <div className="bg-slate-100 relative flex-1">
         <div className="grid gap-8 grid-cols-3 -mt-16 absolute w-full">
           <DisplayComponent type="Entradas" value={1} />
           <DisplayComponent type="Saídas" value={1} />
