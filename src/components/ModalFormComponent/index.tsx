@@ -1,25 +1,56 @@
-import React, { ReactEventHandler, useState } from 'react'
+import React, { useState } from 'react'
 
 import { FaTimes } from 'react-icons/fa'
+import { useModalForm } from 'src/hooks/ModalForm'
 import { ButtonComponent } from '../ButtonComponent'
 import { InputComponent } from '../InputComponent'
 import { SwitchComponent } from '../SwitchComponent'
 
-export const ModalFormComponent = () => {
-  const [isModalOpen, setIsModalOpen] = useState('flex')
+type inputDataProps = {
+  name: string
+  price: string
+  switch: boolean
+  category: string
+}
 
-  const openButton = (evt: React.MouseEvent<HTMLElement>) => {
-    evt.preventDefault()
-    setIsModalOpen('flex')
+export type switchChangeProps = {
+  newSwitchValue: boolean
+}
+
+export const ModalFormComponent = () => {
+  const [isSwitchActive, setIsSwitchActive] = useState(false)
+  const [inputData, setInputData] = useState<inputDataProps>({
+    name: '',
+    price: '',
+    switch: isSwitchActive,
+    category: ''
+  })
+  const { isModalOpen, closeButton } = useModalForm()
+  const modalMode = isModalOpen ? 'flex' : 'hidden'
+
+  const handleChange = (evt) => {
+    setInputData((oldData) => ({
+      ...oldData,
+      [evt.target.name]: evt.target.value
+    }))
   }
-  const closeButton = (evt: React.MouseEvent<HTMLElement>) => {
+
+  function switchChange(newState) {
+    setIsSwitchActive(newState)
+    setInputData((oldData) => ({
+      ...oldData,
+      switch: isSwitchActive
+    }))
+  }
+
+  const submit = (evt) => {
     evt.preventDefault()
-    setIsModalOpen('hidden')
+    console.log(inputData)
   }
 
   return (
     <div
-      className={`fixed w-full h-full flex justify-center items-center ${isModalOpen}`}
+      className={`fixed w-full h-full flex justify-center items-center ${modalMode}`}
     >
       <div
         className="absolute bg-black bg-opacity-60 w-full h-full"
@@ -30,16 +61,34 @@ export const ModalFormComponent = () => {
         <button className="p-2 absolute right-0" onClick={closeButton}>
           <FaTimes size={'1.1rem'} />
         </button>
-        <form className=" flex flex-col p-10">
+        <form className=" flex flex-col p-10" onSubmit={submit}>
           <h2 className="text-slate-600 text-2xl font-bold mb-8">
             Cadastrar transação
           </h2>
-          <InputComponent placeholder="Nome" value="" />
-          <InputComponent placeholder="Preço" value="" />
-          <SwitchComponent />
-          <InputComponent placeholder="Categoria" value="" />
+          <InputComponent
+            name="name"
+            placeholder="Nome"
+            value={inputData.name}
+            onChange={handleChange}
+          />
+          <InputComponent
+            name="price"
+            placeholder="Preço"
+            value={inputData.price}
+            onChange={handleChange}
+          />
+          <SwitchComponent
+            isActive={isSwitchActive}
+            switchChange={switchChange}
+          />
+          <InputComponent
+            name="category"
+            placeholder="Categoria"
+            value={inputData.category}
+            onChange={handleChange}
+          />
           <div className="h-2"></div>
-          <ButtonComponent isBig btnColor="green">
+          <ButtonComponent isBig btnColor="green" type="submit">
             Cadastrar
           </ButtonComponent>
         </form>
