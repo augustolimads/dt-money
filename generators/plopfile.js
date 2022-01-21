@@ -32,5 +32,22 @@ module.exports = (plop) => {
           templateFile: 'templates/Template.tsx.hbs'
         }
       ]
+    }),
+    plop.setGenerator('template', {
+      description: 'Create a hook',
+      prompts: [
+        {
+          type: 'input',
+          name: 'name',
+          message: 'What is your hook name?'
+        }
+      ],
+      actions: [
+        {
+          type: 'add',
+          path: '../src/hooks/{{pascalCase name}}/index.tsx',
+          templateFile: 'templates/Hook.tsx.hbs'
+        }
+      ]
     })
 }

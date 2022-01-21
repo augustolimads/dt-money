@@ -1,0 +1,18 @@
+import React, { createContext, useContext, useState } from 'react'
+
+type {{pascalCase name}}Props = {
+  children: React.ReactNode
+}
+
+const {{pascalCase name}}Context = createContext({})
+
+export const {{pascalCase name}}Provider = ({ children }: {{pascalCase name}}Props) => {
+  return (
+    <{{pascalCase name}}Context.Provider value={{}}>{children}</{{pascalCase name}}Context.Provider>
+  )
+}
+
+export const use{{pascalCase name}} = () => {
+  const {} = useContext({{pascalCase name}}Context)
+  return {}
+}
