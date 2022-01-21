@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { FaTimes } from 'react-icons/fa'
 import { useModalForm } from 'src/hooks/ModalForm'
@@ -37,16 +37,19 @@ export const ModalFormComponent = () => {
 
   function switchChange(newState) {
     setIsSwitchActive(newState)
-    setInputData((oldData) => ({
-      ...oldData,
-      switch: isSwitchActive
-    }))
   }
 
   const submit = (evt) => {
     evt.preventDefault()
     console.log(inputData)
   }
+
+  useEffect(() => {
+    setInputData((oldData) => ({
+      ...oldData,
+      switch: isSwitchActive
+    }))
+  }, [isSwitchActive])
 
   return (
     <div

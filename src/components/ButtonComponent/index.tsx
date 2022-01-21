@@ -7,7 +7,8 @@ type ButtonComponentProp = {
 export const ButtonComponent = ({
   children,
   isBig,
-  btnColor = 'purple'
+  btnColor = 'purple',
+  ...rest
 }: ButtonComponentProp) => {
   const buttonBig = isBig ? 'py-4' : 'py-2'
   const colorList = {
@@ -20,6 +21,7 @@ export const ButtonComponent = ({
   return (
     <button
       className={`text-white ${buttonColor} rounded ${buttonBig} px-8 flex items-center justify-center space-x-2`}
+      {...rest}
     >
       {children}
     </button>
