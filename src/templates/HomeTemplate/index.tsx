@@ -4,6 +4,7 @@ import { LayoutComponent } from 'src/components/LayoutComponent'
 
 const example = [
   {
+    id: '1',
     title: 'picole',
     value: 1,
     category: 'Tchau',
@@ -11,6 +12,7 @@ const example = [
     isIncome: false
   },
   {
+    id: '2',
     title: 'renda',
     value: 15000,
     category: 'Tchau',
@@ -18,6 +20,7 @@ const example = [
     isIncome: true
   },
   {
+    id: '3',
     title: 'devendo',
     value: 15000,
     category: 'Tchau',

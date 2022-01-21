@@ -1,5 +1,6 @@
 type InputTableProps = {
   data: {
+    id: string
     title: string
     value: number
     category: string
@@ -32,7 +33,10 @@ export const InputTableComponent = ({ data }: InputTableProps) => {
             )
 
             return (
-              <tr className="bg-white border-b-8 border-slate-100 rounded-md">
+              <tr
+                key={row.id}
+                className="bg-white border-b-8 border-slate-100 rounded-md"
+              >
                 <td className="py-4 px-6 text-slate-900">{row.title}</td>
                 <td className={`py-4 px-6 ${valueColor}`}>{formatedValue}</td>
                 <td className="py-4 px-6">{row.category}</td>
