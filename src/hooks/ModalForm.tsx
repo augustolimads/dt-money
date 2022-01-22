@@ -13,14 +13,12 @@ type ModalFormActions = {
 const ModalFormContext = createContext({})
 
 export const ModalFormProvider = ({ children }: ModalFormProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const openButton = (evt: React.MouseEvent<HTMLElement>) => {
-    evt.preventDefault()
+  const openButton = () => {
     setIsModalOpen(true)
   }
-  const closeButton = (evt: React.MouseEvent<HTMLElement>) => {
-    evt.preventDefault()
+  const closeButton = () => {
     setIsModalOpen(false)
   }
 

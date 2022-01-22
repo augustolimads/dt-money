@@ -2,8 +2,8 @@ import { ButtonComponent } from '../ButtonComponent'
 import { switchChangeProps } from '../ModalFormComponent'
 
 export const SwitchComponent = ({ isActive, switchChange }) => {
-  const bgIncomeActive = isActive ? 'green' : 'white'
-  const bgOutcomeActive = !isActive ? 'purple' : 'white'
+  const bgIncomeActive = isActive ? 'lightGreen' : 'white'
+  const bgOutcomeActive = !isActive ? 'lightRed' : 'white'
 
   const switchIcome = () => {
     switchChange(true)

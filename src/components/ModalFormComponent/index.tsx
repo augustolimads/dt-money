@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
+import { object, string, number, boolean } from 'yup'
 import { FaTimes } from 'react-icons/fa'
 import { useModalForm } from 'src/hooks/ModalForm'
 import { ButtonComponent } from '../ButtonComponent'
@@ -17,31 +18,64 @@ export type switchChangeProps = {
   newSwitchValue: boolean
 }
 
+const userSchema = object({
+  name: string().min(3, 'deve ter no mínimo 3 caracteres'),
+  price: number().required(),
+  switch: boolean().required(),
+  category: string().min(3, 'deve ter no mínimo 3 caracteres')
+})
+
 export const ModalFormComponent = () => {
-  const [isSwitchActive, setIsSwitchActive] = useState(false)
-  const [inputData, setInputData] = useState<inputDataProps>({
+  const initialState = {
     name: '',
     price: '',
-    switch: isSwitchActive,
+    switch: false,
     category: ''
-  })
+  }
+
+  const [isSwitchActive, setIsSwitchActive] = useState(false)
+  const [errorMsg, setErrorMsg] = useState({})
+  const [inputData, setInputData] = useState<inputDataProps>(initialState)
   const { isModalOpen, closeButton } = useModalForm()
   const modalMode = isModalOpen ? 'flex' : 'hidden'
 
-  const handleChange = (evt) => {
+  const clearForm = () => {
+    setIsSwitchActive(false)
+    setInputData(initialState)
+  }
+
+  const closeModal = () => {
+    closeButton()
+    clearForm()
+  }
+
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setInputData((oldData) => ({
       ...oldData,
       [evt.target.name]: evt.target.value
     }))
   }
 
-  function switchChange(newState) {
+  const switchChange = (newState: boolean) => {
     setIsSwitchActive(newState)
   }
 
-  const submit = (evt) => {
+  const submit = async (evt: React.ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault()
-    console.log(inputData)
+    try {
+      await userSchema.validate(inputData)
+      console.log(inputData)
+      clearForm()
+      closeButton()
+    } catch (err) {
+      setErrorMsg({ path: err.path, error: err.errors[0] })
+    }
+  }
+
+  const hasError = (type) => {
+    if (type === errorMsg.path) {
+      return errorMsg.error
+    }
   }
 
   useEffect(() => {
@@ -57,11 +91,11 @@ export const ModalFormComponent = () => {
     >
       <div
         className="absolute bg-black bg-opacity-60 w-full h-full"
-        onClick={closeButton}
+        onClick={closeModal}
       ></div>
 
       <div className="bg-white rounded sm:w-2/3 md:w-1/3 relative">
-        <button className="p-2 absolute right-0" onClick={closeButton}>
+        <button className="p-2 absolute right-0" onClick={closeModal}>
           <FaTimes size={'1.1rem'} />
         </button>
         <form className=" flex flex-col p-10" onSubmit={submit}>
@@ -73,12 +107,14 @@ export const ModalFormComponent = () => {
             placeholder="Nome"
             value={inputData.name}
             onChange={handleChange}
+            errorMsg={hasError('name')}
           />
           <InputComponent
             name="price"
             placeholder="Preço"
             value={inputData.price}
             onChange={handleChange}
+            errorMsg={hasError('price')}
           />
           <SwitchComponent
             isActive={isSwitchActive}
@@ -89,6 +125,7 @@ export const ModalFormComponent = () => {
             placeholder="Categoria"
             value={inputData.category}
             onChange={handleChange}
+            errorMsg={hasError('category')}
           />
           <div className="h-2"></div>
           <ButtonComponent isBig btnColor="green" type="submit">

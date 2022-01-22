@@ -14,7 +14,9 @@ export const ButtonComponent = ({
   const colorList = {
     purple: 'bg-purple-800',
     green: 'bg-green-400',
-    white: 'bg-white border-2 text-slate-900'
+    white: 'bg-white border-2 text-slate-900',
+    lightGreen: 'bg-green-50',
+    lightRed: 'bg-red-50'
   }
   const buttonColor = colorList[btnColor]
 
