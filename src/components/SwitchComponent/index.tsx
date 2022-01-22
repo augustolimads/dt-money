@@ -1,7 +1,12 @@
 import { ButtonComponent } from '../ButtonComponent'
 import { switchChangeProps } from '../ModalFormComponent'
 
-export const SwitchComponent = ({ isActive, switchChange }) => {
+type SwitchProps = {
+  isActive: boolean
+  switchChange: (newSwitchChange: boolean) => void
+}
+
+export const SwitchComponent = ({ isActive, switchChange }: SwitchProps) => {
   const bgIncomeActive = isActive ? 'lightGreen' : 'white'
   const bgOutcomeActive = !isActive ? 'lightRed' : 'white'
 

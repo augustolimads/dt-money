@@ -1,7 +1,7 @@
-type ButtonComponentProp = {
+interface ButtonComponentProp extends React.ComponentPropsWithoutRef<'button'> {
   children: React.ReactNode
   isBig?: boolean
-  btnColor?: 'green' | 'purple' | 'white'
+  btnColor?: 'green' | 'lightGreen' | 'lightRed' | 'purple' | 'white'
 }
 
 export const ButtonComponent = ({

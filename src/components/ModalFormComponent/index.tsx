@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react'
 
 import { object, string, number, boolean } from 'yup'
+import { v4 as uuidv4 } from 'uuid'
 import { FaTimes } from 'react-icons/fa'
 import { useModalForm } from 'src/hooks/ModalForm'
 import { ButtonComponent } from '../ButtonComponent'
 import { InputComponent } from '../InputComponent'
 import { SwitchComponent } from '../SwitchComponent'
+import { useEntryData } from 'src/hooks/EntryData'
 
 type inputDataProps = {
   name: string
   price: string
-  switch: boolean
+  isIncome: boolean
   category: string
 }
+
+type errorProps = any
 
 export type switchChangeProps = {
   newSwitchValue: boolean
@@ -21,7 +25,7 @@ export type switchChangeProps = {
 const userSchema = object({
   name: string().min(3, 'deve ter no mínimo 3 caracteres'),
   price: number().required(),
-  switch: boolean().required(),
+  isIncome: boolean().required(),
   category: string().min(3, 'deve ter no mínimo 3 caracteres')
 })
 
@@ -29,14 +33,15 @@ export const ModalFormComponent = () => {
   const initialState = {
     name: '',
     price: '',
-    switch: false,
+    isIncome: false,
     category: ''
   }
 
   const [isSwitchActive, setIsSwitchActive] = useState(false)
-  const [errorMsg, setErrorMsg] = useState({})
+  const [errorMsg, setErrorMsg] = useState<errorProps>({})
   const [inputData, setInputData] = useState<inputDataProps>(initialState)
   const { isModalOpen, closeButton } = useModalForm()
+  const { registerEntry } = useEntryData()
   const modalMode = isModalOpen ? 'flex' : 'hidden'
 
   const clearForm = () => {
@@ -64,15 +69,20 @@ export const ModalFormComponent = () => {
     evt.preventDefault()
     try {
       await userSchema.validate(inputData)
-      console.log(inputData)
+      const formatedData = {
+        ...inputData,
+        date: new Intl.DateTimeFormat('pt-BR').format(new Date()),
+        id: uuidv4()
+      }
       clearForm()
       closeButton()
-    } catch (err) {
+      registerEntry(formatedData)
+    } catch (err: errorProps) {
       setErrorMsg({ path: err.path, error: err.errors[0] })
     }
   }
 
-  const hasError = (type) => {
+  const hasError = (type: string) => {
     if (type === errorMsg.path) {
       return errorMsg.error
     }
@@ -81,7 +91,7 @@ export const ModalFormComponent = () => {
   useEffect(() => {
     setInputData((oldData) => ({
       ...oldData,
-      switch: isSwitchActive
+      isIncome: isSwitchActive
     }))
   }, [isSwitchActive])
 

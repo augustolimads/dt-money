@@ -1,8 +1,8 @@
 type InputTableProps = {
   data: {
     id: string
-    title: string
-    value: number
+    name: string
+    price: string
     category: string
     date: string
     isIncome: boolean
@@ -27,20 +27,19 @@ export const InputTableComponent = ({ data }: InputTableProps) => {
             const formatedValue = new Intl.NumberFormat('pt-BR', {
               style: 'currency',
               currency: 'BRL'
-            }).format(row.value)
-            const formatedDate = new Intl.DateTimeFormat('pt-BR').format(
-              new Date(row.date)
-            )
+            }).format(Number(row.price))
+
+            console.log(row.isIncome)
 
             return (
               <tr
                 key={row.id}
                 className="bg-white border-b-8 border-slate-100 rounded-md"
               >
-                <td className="py-4 px-6 text-slate-900">{row.title}</td>
+                <td className="py-4 px-6 text-slate-900">{row.name}</td>
                 <td className={`py-4 px-6 ${valueColor}`}>{formatedValue}</td>
                 <td className="py-4 px-6">{row.category}</td>
-                <td className="py-4 px-6">{formatedDate}</td>
+                <td className="py-4 px-6">{row.date}</td>
               </tr>
             )
           })}

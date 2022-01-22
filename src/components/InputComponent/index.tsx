@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { InputHTMLAttributes, useEffect, useState } from 'react'
 
-type InputProps = {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: string
   placeholder: string
   value: string
+  errorMsg: string
 }
 
 export const InputComponent = ({
