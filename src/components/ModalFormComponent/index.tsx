@@ -65,7 +65,7 @@ export const ModalFormComponent = () => {
     setIsSwitchActive(newState)
   }
 
-  const submit = async (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const submit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
     try {
       await userSchema.validate(inputData)

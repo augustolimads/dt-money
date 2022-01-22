@@ -21,7 +21,7 @@ type displayDataProps = {
 
 type hookProps = {
   entries: entryProps[]
-  registerEntry: () => void
+  registerEntry: (newData: entryProps) => void
   displayData: displayDataProps
 }
 
