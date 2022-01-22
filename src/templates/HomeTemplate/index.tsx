@@ -1,45 +1,24 @@
+import { useEffect, useState } from 'react'
 import { DisplayComponent } from 'src/components/DisplayComponent'
 import { InputTableComponent } from 'src/components/InputTableComponent'
 import { LayoutComponent } from 'src/components/LayoutComponent'
-
-const example = [
-  {
-    id: '1',
-    title: 'picole',
-    value: 1,
-    category: 'Tchau',
-    date: '2022-01-17',
-    isIncome: false
-  },
-  {
-    id: '2',
-    title: 'renda',
-    value: 15000,
-    category: 'Tchau',
-    date: '2022-01-17',
-    isIncome: true
-  },
-  {
-    id: '3',
-    title: 'devendo',
-    value: 15000,
-    category: 'Tchau',
-    date: '2022-01-17',
-    isIncome: false
-  }
-]
+import { useEntryData } from 'src/hooks/EntryData'
 
 export const HomeTemplate = () => {
+  const { entries, displayData } = useEntryData()
+
   return (
     <LayoutComponent>
       <div className="bg-slate-100 relative flex-1">
         <div className="grid gap-8 grid-cols-3 -mt-16 absolute w-full">
-          <DisplayComponent type="Entradas" value={1} />
-          <DisplayComponent type="Saídas" value={1} />
-          <DisplayComponent type="Total" hasGreenBg value={1} />
+          <DisplayComponent type="Entradas" value={displayData.incomes} />
+          <DisplayComponent type="Saídas" value={displayData.outcomes} />
+          <DisplayComponent type="Total" hasGreenBg value={displayData.total} />
         </div>
-        <div className="h-28"></div>
-        <InputTableComponent data={example} />
+        <div className="h-[10vh]"></div>
+        <div className="overflow-y-scroll h-[70vh]">
+          <InputTableComponent data={entries} />
+        </div>
       </div>
     </LayoutComponent>
   )

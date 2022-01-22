@@ -1,3 +1,4 @@
+import { EntryDataProvider } from './EntryData'
 import { ModalFormProvider } from './ModalForm'
 
 type Hookprops = {
@@ -5,5 +6,7 @@ type Hookprops = {
 }
 
 export const Hooks = ({ children }: Hookprops) => (
-  <ModalFormProvider>{children}</ModalFormProvider>
+  <EntryDataProvider>
+    <ModalFormProvider>{children}</ModalFormProvider>
+  </EntryDataProvider>
 )
