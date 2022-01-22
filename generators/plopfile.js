@@ -45,7 +45,7 @@ module.exports = (plop) => {
       actions: [
         {
           type: 'add',
-          path: '../src/hooks/{{pascalCase name}}/index.tsx',
+          path: '../src/hooks/{{pascalCase name}}.tsx',
           templateFile: 'templates/Hook.tsx.hbs'
         }
       ]
