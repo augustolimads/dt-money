@@ -33,7 +33,7 @@ module.exports = (plop) => {
         }
       ]
     }),
-    plop.setGenerator('template', {
+    plop.setGenerator('hook', {
       description: 'Create a hook',
       prompts: [
         {
