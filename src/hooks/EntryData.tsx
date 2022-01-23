@@ -67,7 +67,6 @@ export const EntryDataProvider = ({ children }: EntryDataProps) => {
       outcomes: getEntries('outcome'),
       total: getEntries('income') - getEntries('outcome')
     })
-    console.log(displayData)
   }, [entries])
 
   return (
@@ -78,8 +77,6 @@ export const EntryDataProvider = ({ children }: EntryDataProps) => {
 }
 
 export const useEntryData = () => {
-  const { entries, registerEntry, displayData } = useContext(
-    EntryDataContext
-  ) as hookProps
-  return { entries, registerEntry, displayData }
+  const context = useContext(EntryDataContext) as hookProps
+  return context
 }

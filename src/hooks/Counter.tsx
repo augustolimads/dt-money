@@ -31,9 +31,7 @@ export const CounterProvider = ({ children }: CounterProviderProps) => {
 }
 
 export const useCounter = () => {
-  const { increment, decrement, counter } = useContext(
-    CounterContext
-  ) as CounterProps
+  const context = useContext(CounterContext) as CounterProps
 
-  return { increment, decrement, counter }
+  return context
 }

@@ -30,8 +30,6 @@ export const ModalFormProvider = ({ children }: ModalFormProps) => {
 }
 
 export const useModalForm = () => {
-  const { isModalOpen, openButton, closeButton } = useContext(
-    ModalFormContext
-  ) as ModalFormActions
-  return { isModalOpen, openButton, closeButton }
+  const context = useContext(ModalFormContext) as ModalFormActions
+  return context
 }
